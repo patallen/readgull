@@ -12,7 +12,7 @@ class ReadGull(object):
             print("{}: {}".format(setting, self.settings[setting]))
 
 
-if __name__ == '__main__':
+def main():
     settings = {
         "OUTPUT_PATH": "output",
         "PATH": "content",
