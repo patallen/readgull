@@ -1,12 +1,19 @@
+from markdown import Markdown
 
-####
-# TODO: Use markdown and meta extension
-###
 
 class BaseReader(object):
+
+    file_extensions = ['md', 'markdown']
+
     def __init__(self, settings):
         self.settings = settings
 
+    def read(self, path):
+        """Read from file and return it's Markdown and metadata"""
 
-def parse_metadata(data):
-    
+        self._source_path = path
+        self._markdown = Markdown(extensions=['meta'])
+        with open(path) as text:
+            markdown = self._markdown.convert(text.read())
+            metadata = self._markdown.Meta
+        return markdown, metadata

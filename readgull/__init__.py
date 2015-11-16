@@ -1,4 +1,6 @@
 from settings import get_settings_from_file
+from readers import BaseReader
+import time
 
 
 class ReadGull(object):
@@ -11,6 +13,10 @@ class ReadGull(object):
         for setting in self.settings:
             print("{}: {}".format(setting, self.settings[setting]))
 
+    def run(self):
+        start_time = time.time()
+        context = self.settings.copy()
+
 
 def main():
     settings = {
@@ -21,4 +27,5 @@ def main():
 
     r = ReadGull(settings)
     r.print_settings()
-    print(get_settings_from_file('readconfig.py'))
+    reader = BaseReader(get_settings_from_file('readconfig.py'))
+    reader.read('/Users/patallen/Code/Python/readgulldev/site/content/test.md')
