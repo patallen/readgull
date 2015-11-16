@@ -25,7 +25,7 @@ DEFAULT_CONFIG = {
 def get_settings_from_file(path):
     """Returns a dict of settings from a file"""
     module = load_source(path, os.path.basename(path))
-    return get_settings_from_module(module)
+    return parse_settings(get_settings_from_module(module))
 
 
 def get_settings_from_module(module, default_config=DEFAULT_CONFIG):
@@ -35,3 +35,11 @@ def get_settings_from_module(module, default_config=DEFAULT_CONFIG):
             (k, v) for k, v in inspect.getmembers(module) if k.isupper()
         )
     return context
+
+
+def parse_settings(settings):
+    base_path = os.path.abspath(os.getcwd())
+    if settings['PATH']:
+        settings['PATH'] = os.path.join(base_path)
+
+    return settings

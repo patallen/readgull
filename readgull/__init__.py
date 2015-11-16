@@ -1,6 +1,8 @@
-from settings import get_settings_from_file
+from settings import get_settings_from_file, parse_settings
 from readers import BaseReader
+from generators import Generator
 import time
+import os
 
 
 class ReadGull(object):
@@ -14,18 +16,12 @@ class ReadGull(object):
             print("{}: {}".format(setting, self.settings[setting]))
 
     def run(self):
+        """This will run the generators"""
         start_time = time.time()
         context = self.settings.copy()
 
 
 def main():
-    settings = {
-        "OUTPUT_PATH": "output",
-        "PATH": "content",
-        "EXCLUDE_DIRS": ['poetry', 'songs']
-    }
-
+    settings = get_settings_from_file('readconfig.py')
     r = ReadGull(settings)
     r.print_settings()
-    reader = BaseReader(get_settings_from_file('readconfig.py'))
-    reader.read('/Users/patallen/Code/Python/readgulldev/site/content/test.md')
