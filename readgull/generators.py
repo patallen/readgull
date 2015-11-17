@@ -29,12 +29,19 @@ class Generator(object):
         self.settings = settings
         self.content_type = self._get_content_name(content_type)
         self.content_path = self._get_content_path()
+        self.filepaths = self._get_filepaths()
 
-    def _get_filenames(self):
+    def _get_filepaths(self):
         """
         Get the filepaths for each piece of conent for the given content type.
         """
-        pass
+        all_files = os.listdir(self.content_path)
+        files = []
+        for f in all_files:
+            if f.endswith('.md'):
+                files.append(os.path.abspath(f))
+
+        return files
 
     def _get_content_name(self, content_type):
         """Generates a name for the content type passed in"""
@@ -43,5 +50,5 @@ class Generator(object):
     def _get_content_path(self):
         """Gets the content directory for the content_type"""
         return os.path.join(
-            os.path.abspath(os.getcwd()),
+            os.path.abspath(self.settings['PATH']),
             '{}s'.format(self.content_type))

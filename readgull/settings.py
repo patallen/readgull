@@ -42,7 +42,6 @@ def read_settings(path=None):
     # Set BASE_PATH to dir where readgullconf.py is located
     # Set all other paths relative to BASE_PATH
     settings = get_settings_from_file(path)
-    print(settings)
     settings['BASE_PATH'] = base_path = os.path.dirname(path)
 
     for checkpath in ['PATH', 'OUTPUT_PATH']:

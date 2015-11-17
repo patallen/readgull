@@ -1,5 +1,6 @@
 from settings import read_settings
 import os
+from generators import Generator
 
 
 class ReadGull(object):
@@ -25,4 +26,6 @@ class ReadGull(object):
 
 def main():
     r = ReadGull(read_settings(os.path.abspath('readconfig.py')))
-    r.print_settings()
+    # r.print_settings()
+    gen = Generator(r.settings, 'article')
+    print gen.filepaths
