@@ -28,7 +28,7 @@ class Generator(object):
     def __init__(self, settings, content_type):
         self.settings = settings
         self.content_type = self._get_content_name(content_type)
-        self.content_path = self._get_content_path()
+        self.content_path = self._get_content_path(self.content_type)
         self.filepaths = self._get_filepaths()
 
     def _get_filepaths(self):
@@ -47,8 +47,8 @@ class Generator(object):
         """Generates a name for the content type passed in"""
         return content_type.lower().strip()
 
-    def _get_content_path(self):
+    def _get_content_path(self, content_type):
         """Gets the content directory for the content_type"""
         return os.path.join(
             os.path.abspath(self.settings['PATH']),
-            '{}s'.format(self.content_type))
+            '{}s'.format(content_type))
