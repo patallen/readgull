@@ -1,11 +1,13 @@
-from settings import get_settings_from_file, parse_settings
-from readers import BaseReader
-from generators import Generator
-import time
+from settings import read_settings
 import os
 
 
 class ReadGull(object):
+    """
+    BASE_PATH : Path where readgullconf.py is located
+    PATH : Path where content can be found
+    OUTPUT_PATH : Path to dir where output will be placed
+    """
     def __init__(self, settings):
         self.settings = settings
         self.output_path = settings['OUTPUT_PATH']
@@ -17,11 +19,10 @@ class ReadGull(object):
 
     def run(self):
         """This will run the generators"""
-        start_time = time.time()
-        context = self.settings.copy()
+        # start_time = time.time()
+        # context = self.settings.copy()
 
 
 def main():
-    settings = get_settings_from_file('readconfig.py')
-    r = ReadGull(settings)
+    r = ReadGull(read_settings(os.path.abspath('readconfig.py')))
     r.print_settings()

@@ -25,7 +25,7 @@ DEFAULT_CONFIG = {
 def get_settings_from_file(path):
     """Returns a dict of settings from a file"""
     module = load_source(path, os.path.basename(path))
-    return parse_settings(get_settings_from_module(module))
+    return get_settings_from_module(module)
 
 
 def get_settings_from_module(module, default_config=DEFAULT_CONFIG):
@@ -37,9 +37,16 @@ def get_settings_from_module(module, default_config=DEFAULT_CONFIG):
     return context
 
 
-def parse_settings(settings):
-    base_path = os.path.abspath(os.getcwd())
-    if settings['PATH']:
-        settings['PATH'] = os.path.join(base_path)
+def read_settings(path=None):
+    # Make all paths absolute paths
+    # Set BASE_PATH to dir where readgullconf.py is located
+    # Set all other paths relative to BASE_PATH
+    settings = get_settings_from_file(path)
+    print(settings)
+    settings['BASE_PATH'] = base_path = os.path.dirname(path)
+
+    for checkpath in ['PATH', 'OUTPUT_PATH']:
+        if settings[checkpath] and not os.path.isabs(settings[checkpath]):
+            settings[checkpath] = os.path.join(base_path, settings[checkpath])
 
     return settings
