@@ -32,6 +32,7 @@ class Generator(object):
         self.content_path = self._get_content_path(self.content_type)
         self.filepaths = self._get_filepaths()
         self.reader = BaseReader(settings)
+        self.read_extensions = self.reader.file_extensions
 
     def _get_filepaths(self):
         """
@@ -62,8 +63,14 @@ class Generator(object):
 
         for file in self.filepaths:
             # TODO: Somehow name the content appropriately
-            content[self.content_type + 's'][file] = self.reader.read(file)
+            slug = self.create_slug(file)
+            content[self.content_type + 's'][slug] = self.reader.read(file)
 
         return content
+
+    def create_slug(self, filepath):
+        base = os.path.basename(filepath)
+        # TODO: This should also slugify remaining text
+        return os.path.splitext(base)[0]
 
 
