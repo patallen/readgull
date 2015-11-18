@@ -1,6 +1,9 @@
-from settings import read_settings
 import os
+import pprint
+
+from datetime import datetime
 from generators import Generator
+from settings import read_settings
 
 
 class ReadGull(object):
@@ -13,6 +16,7 @@ class ReadGull(object):
         self.settings = settings
         self.output_path = settings['OUTPUT_PATH']
         self.path = settings['PATH']
+        self.content_types = settings['CONTENT_TYPES']
 
     def print_settings(self):
         for setting in self.settings:
@@ -20,12 +24,19 @@ class ReadGull(object):
 
     def run(self):
         """This will run the generators"""
-        # start_time = time.time()
-        # context = self.settings.copy()
+        context = {}
+        start_time = datetime.now()
+        for content_type in self.content_types:
+            generator = Generator(self.settings, content_type)
+            context[content_type] = generator.get_content()
+        pprint.pprint(context)
+        print("Time to complete: {}".format(datetime.now() - start_time))
+
+
+def test_reader():
+    readgull = ReadGull(read_settings(os.path.abspath('readconfig.py')))
+    readgull.run()
 
 
 def main():
-    r = ReadGull(read_settings(os.path.abspath('readconfig.py')))
-    # r.print_settings()
-    gen = Generator(r.settings, 'article')
-    print gen.filepaths
+    test_reader()

@@ -72,5 +72,3 @@ class Generator(object):
         base = os.path.basename(filepath)
         # TODO: This should also slugify remaining text
         return os.path.splitext(base)[0]
-
-
