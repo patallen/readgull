@@ -28,7 +28,9 @@ class ReadGull(object):
         start_time = datetime.now()
         for content_type in self.content_types:
             generator = Generator(self.settings, content_type)
-            context[content_type] = generator.get_content()
+            content = generator.get_content()
+            if content:
+                context[content_type] = generator.get_content()
         pprint.pprint(context)
         print("Time to complete: {}".format(datetime.now() - start_time))
 
