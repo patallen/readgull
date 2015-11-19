@@ -59,12 +59,9 @@ class Generator(object):
     def get_content(self):
         content = {}
 
-        content[self.content_type + 's'] = {}
-
         for file in self.filepaths:
-            # TODO: Somehow name the content appropriately
             slug = self.create_slug(file)
-            content[self.content_type + 's'][slug] = self.reader.read(file)
+            content[slug] = self.reader.read(file)
 
         return content
 
