@@ -1,5 +1,7 @@
 import os
 from readers import BaseReader
+import slugify
+import pprint
 
 
 class Generator(object):
@@ -60,7 +62,7 @@ class Generator(object):
         generator's given content type.
         """
         content = {}
-
+        pprint.pprint(self.filepaths)
         for file in self.filepaths:
             slug = self.create_slug(file)
             content[slug] = self.reader.read(file)
@@ -73,5 +75,6 @@ class Generator(object):
         and then slugifying the result with the slugify library.
         """
         base = os.path.basename(filepath)
-        # TODO: This should also slugify remaining text
-        return os.path.splitext(base)[0]
+        noext = os.path.splitext(base)[0]
+        slug = slugify.slugify(noext)
+        return slug
