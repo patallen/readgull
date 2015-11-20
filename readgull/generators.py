@@ -17,14 +17,12 @@ class Generator(object):
             excerpt:,
             markdown:,
         },
-        article2 : {
-            title:,
-            date_created:,
-            author:,
-            excerpt:,
-            markdown:,
-        }
+        ...
+        ...
     }
+
+    2. Take the content gathered and use Jinja2 to parse it into HTML to be
+    written by the Writer class.
     """
     def __init__(self, settings, content_type):
         self.settings = settings
@@ -57,6 +55,10 @@ class Generator(object):
             '{}s'.format(content_type))
 
     def get_content(self):
+        """
+        Gets the content of all files in the directory(s) for the
+        generator's given content type.
+        """
         content = {}
 
         for file in self.filepaths:
@@ -66,6 +68,10 @@ class Generator(object):
         return content
 
     def create_slug(self, filepath):
+        """
+        Creates a slug by removing the file extension from the basepath
+        and then slugifying the result with the slugify library.
+        """
         base = os.path.basename(filepath)
         # TODO: This should also slugify remaining text
         return os.path.splitext(base)[0]

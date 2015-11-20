@@ -19,6 +19,9 @@ class ReadGull(object):
         self.content_types = settings['CONTENT_TYPES']
 
     def print_settings(self):
+        """
+        Temporary helper function to print the settings.
+        """
         for setting in self.settings:
             print("{}: {}".format(setting, self.settings[setting]))
 
