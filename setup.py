@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 from setuptools import setup
 
-requires = ['jinja2 >= 2.7']
+requires = [
+    'jinja2 >= 2.7',
+    'python-slugify >= 1.1.4'
+]
 
 entry_points = {
     'console_scripts': [
