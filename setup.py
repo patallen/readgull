@@ -3,7 +3,8 @@ from setuptools import setup
 
 requires = [
     'jinja2 >= 2.7',
-    'python-slugify >= 1.1.4'
+    'python-slugify >= 1.1.4',
+    'Markdown >= 2.6.4'
 ]
 
 entry_points = {
