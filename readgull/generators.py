@@ -64,12 +64,12 @@ class Generator(object):
         content = {}
         pprint.pprint(self.filepaths)
         for file in self.filepaths:
-            slug = self.create_slug(file)
+            slug = self._create_slug(file)
             content[slug] = self.reader.read(file)
 
         return content
 
-    def create_slug(self, filepath):
+    def _create_slug(self, filepath):
         """
         Creates a slug by removing the file extension from the basepath
         and then slugifying the result with the slugify library.
