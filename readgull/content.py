@@ -61,4 +61,6 @@ class Content(object):
             if hasattr(self, 'title'):
                 self.slug = slugify(self.title)
             else:
+                # We should do something with this... will be fine once we
+                # implement required fields for content types
                 self.slug = 'TEMP-SLUG'

@@ -67,12 +67,20 @@ class Generator(object):
         pprint.pprint(self.filepaths)
         for file in self.filepaths:
             content, metadata = self.reader.read(file)
-            print(content)
-            print(metadata)
+            metadata = self._parse_metadata(metadata)
             piece = Content(self.content_type, content, metadata)
             rv.append(piece)
 
         return rv
+
+    def _parse_metadata(self, metadata):
+        """
+        Takes a metadata dict and removes it's values from the list that
+        they are put into by markdown's meta extension.
+        """
+        for key, value in metadata.iteritems():
+            metadata[key] = value[0]
+        return metadata
 
     def _create_slug(self, filepath):
         """
