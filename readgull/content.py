@@ -1,5 +1,7 @@
 import copy
 
+from slugify import slugify
+
 from readgull.settings import DEFAULT_CONFIG
 
 
@@ -23,9 +25,11 @@ class Content(object):
 
         self.local_metadata = metadata
         self.content = content
-        self.excerpt = self._set_excerpt(content)
+        
+        # Setters
         self._set_meta_attrs()
-
+        self._set_excerpt(content)
+        self._set_slug()
 
     def _set_meta_attrs(self):
         """
@@ -46,4 +50,12 @@ class Content(object):
             excerpt_length = self.settings['MAX_EXCERPT_LENGTH']
         excerpt = content[:excerpt_length]
         excerpt += '...'
-        return excerpt
+        self.excerpt = excerpt
+
+    def _set_slug(self):
+        """
+        Try to set the content's slug based on it's title if no slug
+        if no slug attribute exists for the content.
+        """
+        if not hasattr(self, 'slug'):
+            self.slug = slugify(self.title)
