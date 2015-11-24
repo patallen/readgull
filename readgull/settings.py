@@ -19,6 +19,7 @@ DEFAULT_CONFIG = {
     'SITEURL': '',
     'EXCLUDE_PATHS': [''],
     'DEFAULT_AUTHOR': 'Admin',
+    'MAX_EXCERPT_LENGTH': 255,
 }
 
 
