@@ -25,7 +25,7 @@ class Content(object):
 
         self.local_metadata = metadata
         self.content = content
-        
+
         # Setters
         self._set_meta_attrs()
         self._set_excerpt(content)
@@ -58,4 +58,7 @@ class Content(object):
         if no slug attribute exists for the content.
         """
         if not hasattr(self, 'slug'):
-            self.slug = slugify(self.title)
+            if hasattr(self, 'title'):
+                self.slug = slugify(self.title)
+            else:
+                self.slug = 'TEMP-SLUG'

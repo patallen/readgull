@@ -3,6 +3,8 @@ from readers import BaseReader
 import slugify
 import pprint
 
+from readgull.content import Content
+
 
 class Generator(object):
     """
@@ -61,13 +63,16 @@ class Generator(object):
         Gets the content of all files in the directory(s) for the
         generator's given content type.
         """
-        content = {}
+        rv = []
         pprint.pprint(self.filepaths)
         for file in self.filepaths:
-            slug = self._create_slug(file)
-            content[slug] = self.reader.read(file)
+            content, metadata = self.reader.read(file)
+            print(content)
+            print(metadata)
+            piece = Content(self.content_type, content, metadata)
+            rv.append(piece)
 
-        return content
+        return rv
 
     def _create_slug(self, filepath):
         """
