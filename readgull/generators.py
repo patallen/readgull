@@ -45,7 +45,6 @@ class Generator(object):
         for f in all_files:
             if f.endswith('.md'):
                 files.append(os.path.join(self.content_path, f))
-
         return files
 
     def _get_content_name(self, content_type):
@@ -64,7 +63,6 @@ class Generator(object):
         generator's given content type.
         """
         rv = []
-        pprint.pprint(self.filepaths)
         for file in self.filepaths:
             content, metadata = self.reader.read(file)
             metadata = self._parse_metadata(metadata)
