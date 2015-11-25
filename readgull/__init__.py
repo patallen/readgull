@@ -33,8 +33,7 @@ class ReadGull(object):
             generator = Generator(self.settings, content_type)
             content = generator.get_content()
             if content:
-                context[content_type] = generator.get_content()
-        pprint.pprint(context)
+                context[content_type] = content
         print("Time to complete: {}"
               .format(format_timedelta(datetime.now() - start_time)))
 
