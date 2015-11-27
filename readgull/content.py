@@ -20,12 +20,15 @@ class Content(object):
         self.settings = settings
 
         self.local_settings = {}
-        if self.settings.get(self.content_name) is not None:
-            self.local_settings = self.settings[self.content_name]
+        type_settings = self.settings.get('CONTENT_TYPES')
+
+        self.local_settings = type_settings.get(self.content_name)
+        self.required_fields = self.local_settings.get('required_meta')
 
         self.local_metadata = metadata
         self.content = content
 
+        self._check_required_attrs(metadata)
         # Setters
         self._set_meta_attrs()
         self._set_excerpt(content)
@@ -36,7 +39,6 @@ class Content(object):
         This method takes care of converting the metadata provided to
         attributes of the instance that can be accessed using dot notation.
         """
-
         if self.local_metadata:
             for key, value in self.local_metadata.iteritems():
                 setattr(self, key.lower(), value)
@@ -58,7 +60,13 @@ class Content(object):
         if no slug attribute exists for the content.
         """
         if not hasattr(self, 'slug'):
-            if hasattr(self, 'title'):
-                self.slug = slugify(self.title)
-            else:
-                raise Exception("Content must have a title or slug.")
+            self.slug = slugify(self.title)
+
+    def _check_required_attrs(self, metadata):
+        """
+        Checks that all of the required_meta fields specified in the
+        local_settings are attributes of this class.
+        """
+        for attr in self.required_fields:
+            if attr not in metadata.keys():
+                raise ValueError('Check required fields for content type.')

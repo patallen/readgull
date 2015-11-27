@@ -12,7 +12,14 @@ except ImportError:
     load_source = imp.load_source
 
 DEFAULT_CONFIG = {
-    'CONTENT_TYPES': ['article', 'project'],
+    'CONTENT_TYPES': {
+        'article': {
+            'required_meta': ['title']
+        },
+        'project': {
+            'required_meta': ['title', 'stack', 'github_url']
+        },
+    },
     'PATH': os.curdir,
     'OUTPUT_PATH': 'output',
     'SITENAME': 'A ReadGull Site',
