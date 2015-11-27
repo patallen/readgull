@@ -56,11 +56,15 @@ class Content(object):
 
     def _set_slug(self):
         """
-        Try to set the content's slug based on it's title if no slug
-        if no slug attribute exists for the content.
+        Try to set the content's slug based on the attribute specified
+        in the settings SLUG_SOURCE if no slug exists for the content.
         """
         if not hasattr(self, 'slug'):
-            self.slug = slugify(self.title)
+            try:
+                slug_source = getattr(self, self.settings['SLUG_SOURCE'])
+                self.slug = slugify(slug_source)
+            except:
+                raise ValueError("Could not set a slug.")
 
     def _check_required_attrs(self, metadata):
         """

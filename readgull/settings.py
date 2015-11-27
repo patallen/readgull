@@ -27,6 +27,7 @@ DEFAULT_CONFIG = {
     'EXCLUDE_PATHS': [''],
     'DEFAULT_AUTHOR': 'Admin',
     'MAX_EXCERPT_LENGTH': 255,
+    'SLUG_SOURCE': 'title'
 }
 
 
