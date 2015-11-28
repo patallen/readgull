@@ -16,9 +16,6 @@ DEFAULT_CONFIG = {
         'article': {
             'required_meta': ['title']
         },
-        'project': {
-            'required_meta': ['title', 'stack', 'github_url']
-        },
     },
     'PATH': os.curdir,
     'OUTPUT_PATH': 'output',
