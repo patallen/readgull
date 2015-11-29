@@ -34,6 +34,12 @@ class Content(object):
         self._set_excerpt(content)
         self._set_slug()
 
+    def to_dict(self):
+        """Returns the instances attributes as a dictionary."""
+        rv = self.__dict__
+        del rv['settings']
+        return rv
+
     def _set_meta_attrs(self):
         """
         This method takes care of converting the metadata provided to
