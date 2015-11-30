@@ -19,9 +19,7 @@ class Content(object):
             settings = copy.deepcopy(DEFAULT_CONFIG)
         self.settings = settings
 
-        self.local_settings = {}
         type_settings = self.settings.get('CONTENT_TYPES')
-
         self.local_settings = type_settings.get(self.content_name)
         self.required_fields = self.local_settings.get('required_meta')
 
@@ -48,6 +46,14 @@ class Content(object):
         if self.local_metadata:
             for key, value in self.local_metadata.iteritems():
                 setattr(self, key.lower(), value)
+
+        # Set the template based on what we have in the metadata,
+        # then local settings, then default to settings
+        if not hasattr(self, 'template'):
+            if self.local_settings.get('template'):
+                self.template = self.local_settings['template']
+            else:
+                self.template = self.settings['DEFAULT_CONTENT_TEMPLATE']
 
     def _set_excerpt(self, content, excerpt_length=None):
         """

@@ -14,7 +14,8 @@ except ImportError:
 DEFAULT_CONFIG = {
     'CONTENT_TYPES': {
         'article': {
-            'required_meta': ['title']
+            'required_meta': ['title'],
+            'template': 'article.html'
         },
     },
     'PATH': os.curdir,
@@ -24,7 +25,8 @@ DEFAULT_CONFIG = {
     'EXCLUDE_PATHS': [''],
     'DEFAULT_AUTHOR': 'Admin',
     'MAX_EXCERPT_LENGTH': 255,
-    'SLUG_SOURCE': 'title'
+    'SLUG_SOURCE': 'title',
+    'DEFAULT_CONTENT_TEMPLATE': 'content.html'
 }
 
 
