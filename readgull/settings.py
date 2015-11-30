@@ -26,7 +26,8 @@ DEFAULT_CONFIG = {
     'DEFAULT_AUTHOR': 'Admin',
     'MAX_EXCERPT_LENGTH': 255,
     'SLUG_SOURCE': 'title',
-    'DEFAULT_CONTENT_TEMPLATE': 'content.html'
+    'DEFAULT_CONTENT_TEMPLATE': 'content.html',
+    'THEME_DIR': 'theme'
 }
 
 
