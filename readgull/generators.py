@@ -6,26 +6,16 @@ import pprint
 from readgull.content import Content
 
 
-class Generator(object):
+class ContextGenerator(object):
     """
-    Generator will be run for each content type. For each content type, the
-    Generator will:
+    ContextGenerator will be run for each content type. For each type the
+    ContextGenerator will:
     1. Gather each filename/path of each piece of content.
 
-    Stored in context by the Generator
-    context[contents] = {
-        article1 : {
-            title:,
-            date_created:,
-            author:,
-            excerpt:,
-            markdown:,
-        },
-        ...
-        ...
-    }
+    2. Each piece of content will be stored in an instance of Content,
+    where the metadta and content will be converted to attributes.
 
-    2. Take the content gathered and use Jinja2 to parse it into HTML to be
+    3. Take the content gathered and use Jinja2 to parse it into HTML to be
     written by the Writer class.
     """
     def __init__(self, settings, content_type):
