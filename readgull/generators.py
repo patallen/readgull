@@ -89,3 +89,8 @@ class ContentProcessor(object):
     def __init__(self, context, settings=None):
         self.context = context
         self.settings = settings
+
+    def run(self):
+        for ctype, content_list in self.context.iteritems():
+            for c in content_list:
+                print(c.title)

@@ -2,7 +2,7 @@ from datetime import datetime
 import pprint
 import os
 
-from generators import ContextGenerator
+from generators import ContextGenerator, ContentProcessor
 from settings import read_settings
 from utils.time import format_timedelta
 
@@ -34,10 +34,8 @@ class ReadGull(object):
             content = generator.get_content()
             if content:
                 context[content_type] = content
-
-        for content_type, contents in context.iteritems():
-            for c in contents:
-                pprint.pprint(c.to_dict())
+        cp = ContentProcessor(context)
+        cp.run()
         print("Time to complete: {}"
               .format(format_timedelta(datetime.now() - start_time)))
 
