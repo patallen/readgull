@@ -34,7 +34,7 @@ class ReadGull(object):
             content = generator.get_content()
             if content:
                 context[content_type] = content
-        cp = ContentProcessor(context)
+        cp = ContentProcessor(context, settings=self.settings)
         cp.run()
         print("Time to complete: {}"
               .format(format_timedelta(datetime.now() - start_time)))

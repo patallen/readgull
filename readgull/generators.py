@@ -89,6 +89,7 @@ class ContentProcessor(object):
     def __init__(self, context, settings=None):
         self.context = context
         self.settings = settings
+        self.theme_dir = settings.get('THEME_DIR')
 
     def run(self):
         for ctype, content_list in self.context.iteritems():
