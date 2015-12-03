@@ -27,7 +27,8 @@ DEFAULT_CONFIG = {
     'MAX_EXCERPT_LENGTH': 255,
     'SLUG_SOURCE': 'title',
     'DEFAULT_CONTENT_TEMPLATE': 'content.html',
-    'THEME_DIR': 'theme'
+    'THEME_DIR': 'theme',
+    'INDEX_TEMPLATE': 'index.html',
 }
 
 
