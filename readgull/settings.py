@@ -54,7 +54,7 @@ def read_settings(path=None):
     settings = get_settings_from_file(path)
     settings['BASE_PATH'] = base_path = os.path.dirname(path)
 
-    for checkpath in ['PATH', 'OUTPUT_PATH']:
+    for checkpath in ['PATH', 'OUTPUT_PATH', 'THEME_DIR']:
         if settings[checkpath] and not os.path.isabs(settings[checkpath]):
             settings[checkpath] = os.path.join(base_path, settings[checkpath])
 
