@@ -32,7 +32,8 @@ class ReadGull(object):
             generator = ContextGenerator(self.settings, content_type)
             content = generator.get_content()
             if content:
-                context[content_type] = content
+                print(generator.content_group)
+                context[generator.content_group] = content
         cp = ContentProcessor(context, settings=self.settings)
         cp.run()
         print("Time to complete: {}"

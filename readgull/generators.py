@@ -2,7 +2,7 @@ import os
 from readers import BaseReader
 import slugify
 from jinja2 import Environment, FileSystemLoader
-
+import pprint
 from readgull.content import Content
 
 
@@ -20,8 +20,9 @@ class ContextGenerator(object):
     """
     def __init__(self, settings, content_type):
         self.settings = settings
-        self.content_type = self._get_content_name(content_type)
-        self.content_path = self._get_content_path(self.content_type)
+        self.content_type = content_type
+        self.content_group = self._get_content_group(content_type)
+        self.content_path = self._get_content_path(self.content_group)
         self.filepaths = self._get_filepaths()
         self.reader = BaseReader(settings)
         self.read_extensions = self.reader.file_extensions
@@ -37,15 +38,15 @@ class ContextGenerator(object):
                 files.append(os.path.join(self.content_path, f))
         return files
 
-    def _get_content_name(self, content_type):
+    def _get_content_group(self, content_type):
         """Generates a name for the content type passed in"""
-        return content_type.lower().strip()
+        return "{}s".format(content_type.lower().strip())
 
-    def _get_content_path(self, content_type):
+    def _get_content_path(self, content_group):
         """Gets the content directory for the content_type"""
         return os.path.join(
             os.path.abspath(self.settings['PATH']),
-            '{}s'.format(content_type))
+            content_group)
 
     def get_content(self):
         """
@@ -99,6 +100,5 @@ class ContentProcessor(object):
         return env
 
     def run(self):
-        for ctype, content_list in self.context.iteritems():
-            for c in content_list:
-                print(c.title)
+        pprint.pprint(self.context)
+        self.index()
