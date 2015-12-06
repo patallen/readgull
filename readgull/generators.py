@@ -58,6 +58,7 @@ class ContextGenerator(object):
             content, metadata = self.reader.read(file)
             metadata = self._parse_metadata(metadata)
             piece = Content(self.content_type, content, metadata)
+            piece.filename = "{}.html".format(self._create_slug(file))
             rv.append(piece)
 
         return rv
