@@ -58,7 +58,6 @@ class ContextGenerator(object):
             content, metadata = self.reader.read(file)
             metadata = self._parse_metadata(metadata)
             piece = Content(self.content_type, content, metadata)
-            piece.filename = "{}.html".format(self._create_slug(file))
             rv.append(piece)
 
         return rv
@@ -71,16 +70,6 @@ class ContextGenerator(object):
         for key, value in metadata.iteritems():
             metadata[key] = value[0]
         return metadata
-
-    def _create_slug(self, filepath):
-        """
-        Creates a slug by removing the file extension from the basepath
-        and then slugifying the result with the slugify library.
-        """
-        base = os.path.basename(filepath)
-        noext = os.path.splitext(base)[0]
-        slug = slugify.slugify(noext)
-        return slug
 
 
 class ContentProcessor(object):
@@ -99,6 +88,10 @@ class ContentProcessor(object):
         loader = FileSystemLoader(theme_dir)
         env = Environment(loader=loader)
         return env
+
+    def index(self):
+        index = self.environment.get_template('index.html')
+        print index.render(self.context)
 
     def run(self):
         pprint.pprint(self.context)
