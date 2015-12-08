@@ -17,13 +17,6 @@ class ReadGull(object):
         self.path = settings['PATH']
         self.content_types = settings['CONTENT_TYPES']
 
-    def print_settings(self):
-        """
-        Temporary helper function to print the settings.
-        """
-        for setting in self.settings:
-            print("{}: {}".format(setting, self.settings[setting]))
-
     def run(self):
         """This will run the generators"""
         context = {}
