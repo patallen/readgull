@@ -18,15 +18,23 @@ class ReadGull(object):
         self.content_types = settings['CONTENT_TYPES']
 
     def run(self):
-        """This will run the generators"""
+        """
+        This will run the generators, content processors, and use the
+        writers write the necessary files to the output directory.
+        """
         context = {}
         start_time = datetime.now()
         for content_type in self.content_types:
             generator = ContextGenerator(self.settings, content_type)
             content = generator.get_content()
             if content:
-                print(generator.content_group)
                 context[generator.content_group] = content
+
+        # remove current output dir and create new
+        if os.path.exists(self.output_path):
+            os.rmdir(self.output_path)
+        os.mkdir(self.output_path)
+
         cp = ContentProcessor(context, settings=self.settings)
         cp.run()
         print("Time to complete: {}"
