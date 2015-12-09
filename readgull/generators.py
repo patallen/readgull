@@ -1,6 +1,5 @@
 import os
 from readers import BaseReader
-import slugify
 from jinja2 import Environment, FileSystemLoader
 import pprint
 from readgull.content import Content
