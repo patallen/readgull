@@ -31,6 +31,7 @@ class Content(object):
         self._set_meta_attrs()
         self._set_excerpt(content)
         self._set_slug()
+        self._set_content_url()
 
     def to_dict(self):
         """Returns the instances attributes as a dictionary."""
@@ -77,6 +78,13 @@ class Content(object):
                 self.slug = slugify(slug_source)
             except:
                 raise ValueError("Could not set a slug.")
+
+    def _set_content_url(self):
+        """Set the relative path to the content to be used as a link"""
+        output_path = self.local_settings.get('output_path')
+        if not output_path:
+            output_path = '{}s'.format(self.content_name)
+        self.content_url = '/{}/{}.html'.format(output_path, self.slug)
 
     def _check_required_attrs(self, metadata):
         """

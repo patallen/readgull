@@ -15,7 +15,8 @@ DEFAULT_CONFIG = {
     'CONTENT_TYPES': {
         'article': {
             'required_meta': ['title'],
-            'template': 'article.html'
+            'template': 'article.html',
+            'output_path': 'posts'
         },
     },
     'PATH': os.curdir,
