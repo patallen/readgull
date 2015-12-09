@@ -29,6 +29,7 @@ DEFAULT_CONFIG = {
     'DEFAULT_CONTENT_TEMPLATE': 'content.html',
     'THEME_DIR': 'theme',
     'INDEX_TEMPLATE': 'index.html',
+    'ALLOWED_MULTIPLES': ['author']
 }
 
 

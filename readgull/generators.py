@@ -67,7 +67,13 @@ class ContextGenerator(object):
         they are put into by markdown's meta extension.
         """
         for key, value in metadata.iteritems():
-            metadata[key] = value[0]
+            val = value[0]
+            if key in self.settings['ALLOWED_MULTIPLES']:
+                if "," in val:
+                    multilist = [v.strip() for v in val.split(',')]
+                    metadata[key] = multilist
+            else:
+                metadata[key] = val
         return metadata
 
 
