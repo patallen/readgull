@@ -69,11 +69,14 @@ class ContextGenerator(object):
         for key, value in metadata.iteritems():
             val = value[0]
             if key in self.settings['ALLOWED_MULTIPLES']:
+                multis_dict = {}
                 if "," in val:
+                    pkey = '{}s'.format(key)
                     multilist = [v.strip() for v in val.split(',')]
-                    metadata[key] = multilist
-            else:
-                metadata[key] = val
+                    multis_dict[pkey] = multilist
+            metadata[key] = val
+        if multis_dict:
+            metadata.update(multis_dict)
         return metadata
 
 
@@ -99,5 +102,4 @@ class ContentProcessor(object):
         print index.render(self.context)
 
     def run(self):
-        pprint.pprint(self.context)
         self.index()
