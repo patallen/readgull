@@ -1,8 +1,10 @@
 import os
-from readers import BaseReader
 from jinja2 import Environment, FileSystemLoader
 import pprint
-from readgull.content import Content
+import readgull
+from readers import BaseReader
+from content import Content
+from writers import Writer
 
 
 class ContextGenerator(object):
@@ -88,7 +90,10 @@ class ContentProcessor(object):
 
     def __init__(self, context, settings=None):
         self.context = context
-        self.settings = settings
+        if not settings:
+            self.settings = readgull.settings.DEFAULT_CONFIG
+        else:
+            self.settings = settings
         self.theme_dir = settings.get('THEME_DIR')
         self.environment = self._set_environment(self.theme_dir)
 
@@ -97,5 +102,11 @@ class ContentProcessor(object):
         env = Environment(loader=loader)
         return env
 
+    def index(self):
+        index = self.environment.get_template('index.html')
+        return index.render(self.context)
+
     def run(self):
-        self.index()
+        w = Writer(self.settings)
+        # TODO: write files here
+        w.save(self.index(), self.settings['OUTPUT_PATH'], 'index.html')
