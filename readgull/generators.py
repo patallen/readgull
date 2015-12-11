@@ -97,9 +97,5 @@ class ContentProcessor(object):
         env = Environment(loader=loader)
         return env
 
-    def index(self):
-        index = self.environment.get_template('index.html')
-        print index.render(self.context)
-
     def run(self):
         self.index()
