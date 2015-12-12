@@ -1,5 +1,6 @@
 from datetime import datetime
 import os
+import shutil
 
 from generators import ContextGenerator, ContentProcessor
 from settings import read_settings
@@ -32,7 +33,7 @@ class ReadGull(object):
 
         # remove current output dir and create new
         if os.path.exists(self.output_path):
-            os.rmdir(self.output_path)
+            shutil.rmtree(self.output_path)
         os.mkdir(self.output_path)
 
         cp = ContentProcessor(context, settings=self.settings)
