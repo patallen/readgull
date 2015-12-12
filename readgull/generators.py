@@ -102,11 +102,40 @@ class ContentProcessor(object):
         env = Environment(loader=loader)
         return env
 
+    def get_templates(self):
+        templates = []
+        ctypes = self.settings['CONTENT_TYPES']
+        for key in ctypes:
+           templates.append('{}s.html'.format(key))
+        return templates
+
     def index(self):
         index = self.environment.get_template('index.html')
         return index.render(self.context)
 
     def run(self):
         w = Writer(self.settings)
-        # TODO: write files here
-        w.save(self.index(), self.settings['OUTPUT_PATH'], 'index.html')
+        theme_dir = self.settings['THEME_DIR']
+        output_path = self.settings['OUTPUT_PATH']
+        # Loop through and create main page files
+        pages = self.get_templates()
+        for template in pages:
+            w.save(
+                os.path.join(theme_dir, template),
+                output_path,
+                template
+            )
+
+        # Loop through and create content files
+        pprint.pprint(self.context)
+        for _, content in self.context.iteritems():
+            # TODO: get content to be saved in it's type's directory.
+            for c in content:
+                filename = os.path.join(output_path, "{}.html".format(c.slug))
+                if not os.path.exists(os.path.dirname(filename)):
+                    os.makedirs(os.path.dirname(filename))
+                w.save(
+                    os.path.join(theme_dir, c.template),
+                    output_path,
+                    os.path.join(output_path, "{}.html".format(c.slug))
+               )
