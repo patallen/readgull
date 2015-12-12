@@ -106,7 +106,7 @@ class ContentProcessor(object):
         templates = []
         ctypes = self.settings['CONTENT_TYPES']
         for key in ctypes:
-           templates.append('{}s.html'.format(key))
+            templates.append('{}s.html'.format(key))
         return templates
 
     def index(self):
@@ -138,4 +138,4 @@ class ContentProcessor(object):
                     os.path.join(theme_dir, c.template),
                     output_path,
                     os.path.join(output_path, "{}.html".format(c.slug))
-               )
+                )
