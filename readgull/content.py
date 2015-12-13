@@ -36,6 +36,11 @@ class ContentType(object):
             path_string
         )
 
+    def add_content(self, content):
+        if not isinstance(content, Content):
+            raise TypeError('add_content takes an instance of Content.')
+        self.content.append(content)
+
 
 class Content(object):
     """
