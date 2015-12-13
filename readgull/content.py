@@ -1,8 +1,40 @@
 import copy
+import os
 
 from slugify import slugify
 
 from readgull.settings import DEFAULT_CONFIG
+
+
+class ContentType(object):
+    """
+    Object will contain all the information for a content type and
+    the contents under it will be iterable.
+    """
+    def __init__(self, content_type, settings=None):
+        if settings is None:
+            settings = DEFAULT_CONFIG
+        self.settings = settings
+        self.type_settings = settings['CONTENT_TYPES'].get(content_type)
+        self.name = content_type
+        self.content = []
+
+    def __iter__(self):
+        return self.content.__iter__()
+
+    @property
+    def pluralized(self):
+        # TODO: what if ends in s already?
+        return "{}s".format(self.name)
+
+    @property
+    def base_output_path(self):
+        path_string = self.type_settings['output_path'] or self.pluralized
+        return os.path.join(
+            os.path.abspath(self.settings['PATH']),
+            self.settings['OUTPUT_PATH'],
+            path_string
+        )
 
 
 class Content(object):
