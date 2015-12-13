@@ -3,6 +3,7 @@ import os
 import shutil
 
 from generators import ContextGenerator, ContentProcessor
+from content import ContentType
 from settings import read_settings
 from utils.time import format_timedelta
 
@@ -29,7 +30,10 @@ class ReadGull(object):
             generator = ContextGenerator(self.settings, content_type)
             content = generator.get_content()
             if content:
-                context[generator.content_group] = content
+                ct = ContentType(content_type, self.settings)
+                for c in content:
+                    ct.add_content(c)
+                context[generator.content_group] = ct
 
         # remove current output dir and create new
         if os.path.exists(self.output_path):
