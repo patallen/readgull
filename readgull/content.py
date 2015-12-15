@@ -24,7 +24,6 @@ class ContentType(object):
 
     @property
     def pluralized(self):
-        # TODO: what if ends in s already?
         return "{}s".format(self.name)
 
     @property
@@ -37,9 +36,19 @@ class ContentType(object):
         )
 
     def add_content(self, content):
-        if not isinstance(content, Content):
-            raise TypeError('add_content takes an instance of Content.')
-        self.content.append(content)
+        """
+        Add an instance of Content or a list of instances of Content
+        to the iterable of this class.
+        """
+        if isinstance(content, (list, tuple)):
+            for c in content:
+                self.add_content(c)
+        elif isinstance(content, Content):
+            self.content.append(content)
+        else:
+            raise TypeError(
+                'add_content must be given a Content or a list of Contents'
+            )
 
 
 class Content(object):
