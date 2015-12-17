@@ -50,6 +50,19 @@ class ContentType(object):
                 'add_content must be given a Content or a list of Contents'
             )
 
+    def get_content_path(self, content):
+        """
+        Given a piece of content, return the content's absolute
+        output path relative to the ContentType's base_path.
+        """
+        if isinstance(content, Content):
+            return os.path.join(
+                self.base_output_path,
+                "{}.html".format(content.slug)
+            )
+        else:
+            raise TypeError
+
 
 class Content(object):
     """
