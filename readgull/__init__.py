@@ -3,7 +3,7 @@ import os
 import shutil
 
 from generators import ContextGenerator, ContentProcessor
-from content import ContentType
+from contents import ContentType
 from settings import read_settings
 from utils.time import format_timedelta
 
