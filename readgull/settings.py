@@ -16,7 +16,8 @@ DEFAULT_CONFIG = {
         'article': {
             'required_meta': ['title'],
             'template': 'article.html',
-            'output_path': 'posts'
+            'output_path': 'posts',
+            'output_extension': 'html',
         },
     },
     'PATH': os.curdir,
@@ -28,6 +29,7 @@ DEFAULT_CONFIG = {
     'MAX_EXCERPT_LENGTH': 255,
     'SLUG_SOURCE': 'title',
     'DEFAULT_CONTENT_TEMPLATE': 'content.html',
+    'DEFAULT_OUTPUT_EXTENSION':'html',
     'THEME_DIR': 'theme',
     'INDEX_TEMPLATE': 'index.html',
     'ALLOWED_MULTIPLES': ['author']

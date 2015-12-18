@@ -19,6 +19,11 @@ class ContentType(object):
         self.name = content_type
         self.content = []
 
+        file_extension = self.type_settings.get('output_extension')
+        if file_extension is None:
+            file_extension = settings['DEFAULT_OUTPUT_EXTENSION']
+        self.file_extension = file_extension or 'html'
+
     def __iter__(self):
         return self.content.__iter__()
 
@@ -58,7 +63,7 @@ class ContentType(object):
         if isinstance(content, Content):
             return os.path.join(
                 self.base_output_path,
-                "{}.html".format(content.slug)
+                "{}.{}".format(content.slug, self.file_extension)
             )
         else:
             raise TypeError
