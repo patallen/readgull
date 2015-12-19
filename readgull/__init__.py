@@ -31,8 +31,7 @@ class ReadGull(object):
             content = generator.get_content()
             if content:
                 ct = ContentType(content_type, self.settings)
-                for c in content:
-                    ct.add_content(c)
+                ct.add_contents(content)
                 context[generator.content_group] = ct
 
         # remove current output dir and create new

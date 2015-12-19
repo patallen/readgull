@@ -1,9 +1,8 @@
 import os
 from jinja2 import Environment, FileSystemLoader
-import pprint
 import readgull
 from readers import BaseReader
-from content import Content
+from contents import Content
 from writers import Writer
 
 
@@ -127,7 +126,6 @@ class ContentProcessor(object):
             )
 
         # Loop through and create content files
-        pprint.pprint(self.context)
         for _, content in self.context.iteritems():
             # TODO: get content to be saved in it's type's directory.
             for c in content:

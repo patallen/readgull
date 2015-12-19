@@ -1,5 +1,6 @@
 import copy
 import os
+import readgull
 
 from slugify import slugify
 
@@ -40,20 +41,25 @@ class ContentType(object):
             path_string
         )
 
-    def add_content(self, content):
+    def add_contents(self, contents):
         """
         Add an instance of Content or a list of instances of Content
         to the iterable of this class.
         """
-        if isinstance(content, (list, tuple)):
-            for c in content:
+        if isinstance(contents, (list, tuple)):
+            for c in contents:
                 self.add_content(c)
-        elif isinstance(content, Content):
+        elif isinstance(contents, Content):
+            self.add_content(contents)
+        else:
+            raise TypeError
+
+    def add_content(self, content):
+        if type(content) is Content:
             self.content.append(content)
         else:
-            raise TypeError(
-                'add_content must be given a Content or a list of Contents'
-            )
+            print content
+            raise TypeError
 
     def get_content_path(self, content):
         """
