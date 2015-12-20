@@ -25,6 +25,11 @@ class ContentType(object):
             file_extension = settings['DEFAULT_OUTPUT_EXTENSION']
         self.file_extension = file_extension or 'html'
 
+        template_path = self.type_settings.get('template')
+        if template_path is None:
+            template_path = "{}.{}".format(self.name, self.file_extension)
+        self.template_path = template_path
+
     def __iter__(self):
         return self.content.__iter__()
 

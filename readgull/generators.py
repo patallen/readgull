@@ -103,14 +103,10 @@ class ContentProcessor(object):
 
     def get_templates(self):
         templates = []
-        ctypes = self.settings['CONTENT_TYPES']
-        for key in ctypes:
-            templates.append('{}s.html'.format(key))
+        for ct in self.context.values():
+            templates.append(ct.template_path)
+        print(templates)
         return templates
-
-    def index(self):
-        index = self.environment.get_template('index.html')
-        return index.render(self.context)
 
     def run(self):
         w = Writer(self.settings)
