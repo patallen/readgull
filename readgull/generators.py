@@ -105,7 +105,6 @@ class ContentProcessor(object):
         templates = []
         for ct in self.context.values():
             templates.append(ct.template_path)
-        print(templates)
         return templates
 
     def run(self):
@@ -113,23 +112,17 @@ class ContentProcessor(object):
         theme_dir = self.settings['THEME_DIR']
         output_path = self.settings['OUTPUT_PATH']
         # Loop through and create main page files
-        pages = self.get_templates()
-        for template in pages:
-            w.save(
-                os.path.join(theme_dir, template),
-                output_path,
-                template
-            )
+        # TODO: WE STILL NEED TO DO THIS
 
         # Loop through and create content files
         for _, content in self.context.iteritems():
             # TODO: get content to be saved in it's type's directory.
             for c in content:
-                filename = os.path.join(output_path, "{}.html".format(c.slug))
+                filename = os.path.join(content.get_content_path(c))
                 if not os.path.exists(os.path.dirname(filename)):
                     os.makedirs(os.path.dirname(filename))
                 w.save(
                     os.path.join(theme_dir, c.template),
                     output_path,
-                    os.path.join(output_path, "{}.html".format(c.slug))
+                    os.path.join(filename)
                 )
