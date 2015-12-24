@@ -3,7 +3,9 @@ import readgull
 
 
 class Writer(object):
-
+    """
+    This class is used to write context into actual physical files.
+    """
     def __init__(self, settings=None):
         if not settings:
             self.settings = readgull.settings.DEFAULT_CONFIG
